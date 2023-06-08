@@ -1,0 +1,26 @@
+.comment-card {
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  display: flex;
+  gap: 10px;
+  background-color: #183054 !important;
+  border-radius: 5px;
+}
+
+.comment-author {
+  display: flex;
+  align-items: flex-start;
+  font-size: 1.2em;
+}
+
+.avatar {
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment-text {
+  font-size: 1em;
+}
