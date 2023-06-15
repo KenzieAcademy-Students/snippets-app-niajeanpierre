@@ -7,9 +7,21 @@ const router = express.Router();
 
 router
   .route("/:id")
-  /**
-   * Your GET route here
-   */
+  .get(async (req, res) => {
+    const populateQuery = { 
+      path: "posts",
+      populate: { path: "author", select: ["username", "profile_image"] }
+    }
+    const { id } = req.params;
+    const user = await User.findOne(
+      {
+        username: id,
+      }
+    )
+    .populate(populateQuery);
+    if (!user) {
+    res.status(404).send()}
+  })
   .put(async (req, res) => {
     const { password } = req.body;
     const { id } = req.params;

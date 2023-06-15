@@ -77,13 +77,16 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
             }}
           >
             <Figure.Image
+            onClick={() => navigate(`/u/${author.username}`)}
               src={author.profile_image}
               className="w-100 h-100 mr-4"
             />
           </Figure>
           <div className="w-100">
             <div className="d-flex align-items-center">
-              <span className="text-muted mr-1 username">
+              <span 
+              onClick={() => navigate(`/u/${author.username}`)}
+              className="text-muted mr-1 username">
                 @{author.username}
               </span>
               <pre className="m-0 text-muted">{" - "}</pre>
