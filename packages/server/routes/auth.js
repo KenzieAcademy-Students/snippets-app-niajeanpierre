@@ -11,13 +11,13 @@ router.route('/').get((req, res, next) => {
 })
 
 router.post('/signup', async (req, res) => {
-  const { username, password, profile_image } = req.body
+  const { username, password, email, profile_image } = req.body
 
-  if (!password || !username) {
+  if (!password || !username || !email) {
     return res.status(422).json({ error: 'please add all the fields' })
   }
 
-  User.findOne({ username: username })
+  User.findOne({$or: [{username: username }, {email:email}]})
     .then((savedUser) => {
       if (savedUser) {
         return res
@@ -28,6 +28,7 @@ router.post('/signup', async (req, res) => {
         const user = new User({
           username,
           passwordHash: hashedpassword,
+          email: email,
           profile_image: profile_image,
         })
 
