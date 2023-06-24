@@ -1,9 +1,10 @@
 import React from "react";
 import { Figure, Row, Col } from "react-bootstrap";
 import "./Comment.css";
+import { timeSince } from "utils/timeSince";
 
 const Comment = ({ comment }) => {
-  const { author } = comment;
+  const { author, created } = comment;
   return (
     <Row className="comment-card my-3 px-3 py-2" style={{ flexWrap: "nowrap" }}>
       <Col
@@ -25,6 +26,7 @@ const Comment = ({ comment }) => {
       <Col xs={9} className="d-flex flex-column">
         <div className="mb-2 comment-author">
           <span>@{comment.author?.username}</span>
+          <pre className="m-0 text-muted">{timeSince(created)}</pre>
         </div>
         <p className="comment-text">{comment.text}</p>
       </Col>
