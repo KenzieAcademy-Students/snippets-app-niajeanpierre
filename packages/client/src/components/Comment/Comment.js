@@ -26,7 +26,7 @@ const Comment = ({ comment }) => {
       <Col xs={9} className="d-flex flex-column">
         <div className="mb-2 comment-author">
           <span>@{comment.author?.username}</span>
-          <pre className="m-0 text-muted">{timeSince(created)}</pre>
+          <pre className="m-0 text-muted"> {timeSince(created)} </pre>
         </div>
         <p className="comment-text">{comment.text}</p>
       </Col>

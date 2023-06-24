@@ -78,3 +78,4 @@ npm install mongoose -w server
 
 This would add a "react-router-dom" dependency to the frontend, and a "mongoose" dependency to the backend. 
 
+Graham and Ethan helped with comment time stamp
