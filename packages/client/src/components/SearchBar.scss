@@ -1,0 +1,9 @@
+$text-color: blue;
+$font-weights: (
+  "regular": 400
+);
+input {
+  background-color: white;
+  font-weight: map-get($font-weights, regular);
+  color: $text-color;
+}
