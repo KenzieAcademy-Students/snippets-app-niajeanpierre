@@ -36,7 +36,7 @@ export default function Header() {
                   }}
                 >
                   <Figure.Image
-                    src={user.profile_image}
+                    src={"/" + user.profile_image}
                     className="w-100 h-100"
                   />
                 </Figure>

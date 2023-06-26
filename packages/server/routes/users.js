@@ -21,6 +21,9 @@ router
     .populate(populateQuery);
     if (!user) {
     res.status(404).send()}
+    else {
+      res.status(200).json(user)
+    }
   })
   .put(async (req, res) => {
     const { password } = req.body;

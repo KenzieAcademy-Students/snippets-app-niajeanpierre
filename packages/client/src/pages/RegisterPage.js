@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useProvideAuth } from "hooks/useAuth";
 import { LandingHeader, LoadingSpinner } from "components";
 import { setAuthToken } from "utils/axiosConfig";
+import ChooseAvatar from "components/AvatarPicker";
 
 const initialState = {
   username: "",
@@ -13,10 +14,33 @@ const initialState = {
   errorMessage: null,
 };
 
+let imgs = [
+  "/bird.svg",
+  "/dog.svg",
+  "/fox.svg",
+  "/frog.svg",
+  "/lion.svg",
+  "/owl.svg",
+  "/tiger.svg",
+  "/whale.svg",
+];
+
 const RegisterPage = () => {
   const [data, setData] = useState(initialState);
+
+  const [presentAvatar, setPresentAvatar] = useState();
+
+  const [avatar, setAvatar] = useState();
+
   const auth = useProvideAuth();
 
+  const handlePresentAvatar = (avatarIndex, avatar) => {
+    setAvatar(avatar)
+    setPresentAvatar(avatarIndex)
+  }
+
+console.log(presentAvatar);
+console.log(avatar)
   let navigate = useNavigate();
 
   const [profileImage, setProfileImage] = useState(getRandomProfileUrl());
@@ -31,7 +55,7 @@ const RegisterPage = () => {
       "lion.svg",
       "owl.svg",
       "tiger.svg",
-      "whale.svg",
+      "swhale.svg",
     ];
     let img = imgs[Math.floor(Math.random() * imgs.length)];
     return `/${img}`;
@@ -62,7 +86,7 @@ const RegisterPage = () => {
         data.username,
         data.email,
         data.password,
-        profileImage
+        avatar
       );
       setData({
         ...data,
@@ -128,6 +152,13 @@ const RegisterPage = () => {
                 value={data.password}
                 onChange={handleInputChange}
               />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label> Profile Avatar </Form.Label>
+              <ChooseAvatar
+              avatars = {imgs}
+              presentAvatar = {presentAvatar}
+              handlePresentAvatar = {handlePresentAvatar}/>
             </Form.Group>
             {data.errorMessage && (
               <span className="form-error text-warning">

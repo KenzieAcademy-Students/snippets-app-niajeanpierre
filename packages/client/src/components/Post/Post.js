@@ -78,7 +78,7 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
           >
             <Figure.Image
             onClick={() => navigate(`/u/${author.username}`)}
-              src={author.profile_image}
+              src={"/" + author.profile_image}
               className="w-100 h-100 mr-4"
             />
           </Figure>

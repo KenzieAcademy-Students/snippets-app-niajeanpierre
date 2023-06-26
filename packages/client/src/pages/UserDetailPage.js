@@ -112,7 +112,7 @@ const UserDetailPage = () => {
                 backgroundColor: "white",
               }}
             >
-              <Figure.Image src={user.profile_image} className="w-100 h-100" />
+              <Figure.Image src={"/" + user.profile_image} className="w-100 h-100" />
             </Figure>
             <Card.Title>{user.username}</Card.Title>
             <Card.Title>{user.email}</Card.Title>
