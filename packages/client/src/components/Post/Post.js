@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Button, Card, Figure, ListGroup } from "react-bootstrap";
+import { Container, Button, Card, Figure, ListGroup, OverlayTrigger } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useProvideAuth } from "hooks/useAuth";
 import axios from "utils/axiosConfig.js";
@@ -14,8 +14,9 @@ import {
 import "./Post.scss";
 import { toast } from "react-toastify";
 import useToggle from "hooks/useToggle";
+import Tooltip from "react-bootstrap/Tooltip";
 
-const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
+const Post = ({ post: { _id, author, text, comments, created, likes } ,userDetail }) => {
   const [showDelete, toggleShowDelete] = useToggle();
   const [isDeleted, toggleIsDeleted] = useToggle();
 
@@ -23,8 +24,8 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
   const {
     state: { user },
   } = useProvideAuth();
-  const [likedState, setLiked] = useState(likes.includes(user.uid));
-  const [likesState, setLikes] = useState(likes.length);
+  const [likedState, setLiked] = useState(likes?.includes(user.uid));
+  const [likesState, setLikes] = useState(likes?.length);
 
   const handleToggleLike = async () => {
     if (!likedState) {
@@ -62,6 +63,10 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
 
   if (isDeleted) return <></>;
 
+  console.log(likes)
+
+console.log(author)
+  
   return (
     <>
       <ListGroup.Item className="bg-white text-danger rounded-edge" as={"div"}>
@@ -77,8 +82,8 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
             }}
           >
             <Figure.Image
-            onClick={() => navigate(`/u/${author.username}`)}
-              src={"/" + author.profile_image}
+            onClick={() => navigate(`/u/${author?.username}`)}
+              src={author?.profile_image}
               className="w-100 h-100 mr-4"
             />
           </Figure>
@@ -87,7 +92,7 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
               <span 
               onClick={() => navigate(`/u/${author.username}`)}
               className="text-muted mr-1 username">
-                @{author.username}
+                @{author?.username}
               </span>
               <pre className="m-0 text-muted">{" - "}</pre>
               <span className="text-muted">{timeSince(created)} ago</span>
@@ -100,7 +105,7 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
 
             <div className="d-flex justify-content-end align-items-bottom">
               <div className="d-flex align-items-center">
-                {user.username === author.username && (
+                {user.username === author?.username && (
                   <Container className="close">
                     <TrashIcon onClick={toggleShowDelete} />
                   </Container>
@@ -115,17 +120,32 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
                 >
                   <ReplyIcon />
                 </Button>
-                <span>{comments.length > 0 ? comments.length : 0}</span>
+                <span>{comments?.length > 0 ? comments?.length : 0}</span>
               </div>
               <div
                 className={`d-flex align-items-center mr-3 ${
                   likedState ? "isLiked" : ""
                 }`}
               >
+                <div className="d-flex align-items-center mr-3">
+                </div>
+                <OverlayTrigger
+                placement="top"
+                  overlay={
+                    <Tooltip id={`tooltip-likes-${_id}`}>
+                      {likes && likes.map(function (like) {
+    return ( like.username );
+  }).join(', ')}
+                    </Tooltip>
+                  }
+                  >
                 <Button variant="link" size="md" onClick={handleToggleLike}>
                   {likedState ? <LikeIconFill /> : <LikeIcon />}
                 </Button>
+                
+                </OverlayTrigger>
                 <span>{likesState}</span>
+
               </div>
             </div>
           </div>

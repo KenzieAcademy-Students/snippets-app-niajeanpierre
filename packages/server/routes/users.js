@@ -26,11 +26,20 @@ router
     }
   })
   .put(async (req, res) => {
-    const { password } = req.body;
+    const { password, currentPassword} = req.body;
     const { id } = req.params;
 
     const hashedpassword = await bcrypt.hash(password, 12);
-
+    const user = User.findById(id);
+    const matchingPasses = await bcrypt.compare(currentPassword, user.passwordHash)
+    
+    if (!matchingPasses) {
+      return res.status(401).json({ error: "Current password does not match"})
+    } else if (password.length < 8 || password.length > 20) {
+      return res.status(400).json({ error: "Password must be 8 - 20 characters"})
+    } else if (password !== confirmPassword) {
+      return res.status(400).json({error: "Passwords do not match."})
+    }
     try {
       const userUpdate = await User.findByIdAndUpdate(
         {
@@ -54,7 +63,7 @@ router.route("/:id/avatar").put(requireAuth, async (req, res) => {
   const { id } = req.params;
   const { profile_image } = req.body;
 
-  const user = await User.findById(id);
+  const user = await User.findOne({username: id});
 
   if (!user) res.status(404).json({ error: "user not found" });
 

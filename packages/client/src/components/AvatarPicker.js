@@ -1,14 +1,22 @@
 import React from "react";
-import { useState } from "react";
+import FileUploader from "components/FileUploader";
 
-const ChooseAvatar = ({ avatars, presentAvatar, handlePresentAvatar }) => {
+const ChooseAvatar = ({ 
+  avatars,
+  presentAvatar,
+  handlePresentAvatar,
+  // profileImage,
+  setProfileImage,
+  // imgs,
+  // profileImageSelector
+ }) => {
   
   return (
     <div>
       {avatars.map((avatar, index) => (
         <img
           key={index}
-          src={avatar}
+          src={"/" + avatar}
           alt={`Avatar ${index}`}
           style={{
             border: presentAvatar === index ? "4px double yellow" : "none",
@@ -21,6 +29,7 @@ const ChooseAvatar = ({ avatars, presentAvatar, handlePresentAvatar }) => {
           }}
         />
       ))}
+      <FileUploader setProfileImage={setProfileImage} />
     </div>
   );
 };

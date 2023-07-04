@@ -15,14 +15,14 @@ const initialState = {
 };
 
 let imgs = [
-  "/bird.svg",
-  "/dog.svg",
-  "/fox.svg",
-  "/frog.svg",
-  "/lion.svg",
-  "/owl.svg",
-  "/tiger.svg",
-  "/whale.svg",
+  "bird.svg",
+  "dog.svg",
+  "fox.svg",
+  "frog.svg",
+  "lion.svg",
+  "owl.svg",
+  "tiger.svg",
+  "whale.svg",
 ];
 
 const RegisterPage = () => {
@@ -43,24 +43,28 @@ console.log(presentAvatar);
 console.log(avatar)
   let navigate = useNavigate();
 
-  const [profileImage, setProfileImage] = useState(getRandomProfileUrl());
+  const [profileImage, setProfileImage] = useState(0)
 
-  function getRandomProfileUrl() {
-    //geneartes random pic in img
-    let imgs = [
-      "bird.svg",
-      "dog.svg",
-      "fox.svg",
-      "frog.svg",
-      "lion.svg",
-      "owl.svg",
-      "tiger.svg",
-      "swhale.svg",
-    ];
-    let img = imgs[Math.floor(Math.random() * imgs.length)];
-    return `/${img}`;
-  }
+  // const [profileImage, setProfileImage] = useState(getRandomProfileUrl());
 
+  // function getRandomProfileUrl() {
+  //   //geneartes random pic in img
+  //   let imgs = [
+  //     "bird.svg",
+  //     "dog.svg",
+  //     "fox.svg",
+  //     "frog.svg",
+  //     "lion.svg",
+  //     "owl.svg",
+  //     "tiger.svg",
+  //     "swhale.svg",
+  //   ];
+  //   let img = imgs[Math.floor(Math.random() * imgs.length)];
+  //   return `/${img}`;
+  // }
+const chooseProfileImg = (i) => {
+  setProfileImage(`${i}`)
+}
   const handleInputChange = (event) => {
     setData({
       ...data,
